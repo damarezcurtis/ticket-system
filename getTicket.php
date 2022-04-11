@@ -23,8 +23,7 @@ class getTicket{
 			$limit = 8;
 			
 			$this->get_total($limit);
-			
-			
+
 			$eq = ($pageno-1)*$limit;
 			$this->get_tickets($eq,$limit);
 			$this->pagination_menu($limit,$pageno) ;
@@ -48,7 +47,7 @@ class getTicket{
 		}
 		
         if (!$stmt->execute()) {
-			echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+		echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
             
 		}else{
             $stmt						->	store_result();
@@ -97,10 +96,6 @@ class getTicket{
         }
 	}
 	private function get_tickets($offset,$no_of_records_per_page){
-		
-		
-		
-		
 		echo "<ul class=\"list-group\">";
 		$items 					= 	array();
 		$connection 			= 	new Connect();
@@ -112,21 +107,20 @@ class getTicket{
 		$row_cnt = $resultaat->num_rows;
 		if (!($stmt = $mysqli->prepare($query))) {
      		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-		}
-		
-        if (!$stmt->execute()) {
+		}	
+        	if (!$stmt->execute()) {
 			echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
             
 		}else{
-            $stmt						->	store_result();
+           	 $stmt						->	store_result();
 			$numrows 					= 	$stmt->num_rows;
 			
 			
 			
-            if (!$stmt->bind_result($id, $naam, $email, $kantoor, $prio, $ticket, $subject, $datum, $status,$actie, $opmerking, $currentdate)) {
-                echo "bind_result failed: (" . $stmt->errno . ") " . $stmt->error;
-            }else{
-                while ($stmt->fetch()) {
+            	if (!$stmt->bind_result($id, $naam, $email, $kantoor, $prio, $ticket, $subject, $datum, $status,$actie, $opmerking, $currentdate)) {
+                	echo "bind_result failed: (" . $stmt->errno . ") " . $stmt->error;
+           	 }else{
+                	while ($stmt->fetch()) {
 					//echo ($naam);
 					$cdate    = new DateTime($currentdate);
 					 setlocale(LC_ALL, 'nld_nld');
@@ -165,15 +159,13 @@ class getTicket{
   </li>";
                 }
             } 
-            
-            $stmt->close();
+           		 $stmt->close();
 			echo "</ul>";
-        }
+        	}
 	}
 	private function get_ticket($id){
-		
-		$items 					= 	array();
-		$connection 			= 	new Connect();
+
+		$connection 				= 	new Connect();
 		$connection				->	start();
 		$mysqli 				=	$connection->connection;
 		$query 					=	"SELECT `id`, `naam`, `email`, `kantoor`, `prio`, `ticket`,`subject`, `datum`, `status`,`actie`, `opmerking`, `currentdate` FROM `marketingticket`  WHERE `id`=?;";
@@ -191,7 +183,7 @@ class getTicket{
             
 		}else{
             $stmt						->	store_result();
-			$numrows 					= 	$stmt->num_rows;
+		$numrows 					= 	$stmt->num_rows;
             if (!$stmt->bind_result($id, $naam, $email, $kantoor, $prio, $ticket,$subject, $datum, $status,$actie, $opmerking, $currentdate)) {
                 echo "bind_result failed: (" . $stmt->errno . ") " . $stmt->error;
             }else{
