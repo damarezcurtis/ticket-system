@@ -77,11 +77,11 @@ Marketing
 		
 		$search = ["{id}"];
 		$replace = [$id];
-		$template	           					=   file_get_contents('templates/emailclient.html', true);
-		$msg               						=   str_replace($search,$replace,$template);
+		$template	           					=   	file_get_contents('templates/emailclient.html', true);
+		$msg               						=   	str_replace($search,$replace,$template);
 	
 		$mail 								= 	new PHPMailer;
-		$mail->CharSet 							=   "UTF-8";
+		$mail->CharSet 							=   	"UTF-8";
 		$mail								->	setFrom(CONFIG::SENDER, 'VCK Travel');
 		$mail								->	addAddress($_SESSION['addTraveller_email_booker'], 'VCK Travel');
 		
@@ -101,8 +101,8 @@ Marketing
 		
 		$search = ["{NAME}","{id}","{response}"];
 		$replace = [$naam,$id,$response];
-		$template	           					=   file_get_contents('templates/emailclosed.html', true);
-		$msg               						=   str_replace($search,$replace,$template);
+		$template	           					=   	file_get_contents('templates/emailclosed.html', true);
+		$msg               						=   	str_replace($search,$replace,$template);
 		
 		
 		$mail 								= 	new PHPMailer;
@@ -123,7 +123,7 @@ Marketing
 	}
 	private function cleanUpString($inputString){
 		$invalid_characters = array("$", "%", "#", "<", ">", "|");
-		$str 								= str_replace($invalid_characters, "", $inputString);
+		$str 								= 	str_replace($invalid_characters, "", $inputString);
 		return $str;
 	}
 	private function sendProfile(){
@@ -132,43 +132,43 @@ Marketing
 			$traveller	= '';
 				
 			if(isset($_POST['naam'])){
-				$naam 						= $this->cleanUpString(htmlspecialchars($_POST['naam']));
-				$_SESSION['naam']				= $this->cleanUpString(htmlspecialchars($_POST['naam']));
+				$naam 						= 	$this->cleanUpString(htmlspecialchars($_POST['naam']));
+				$_SESSION['naam']				= 	$this->cleanUpString(htmlspecialchars($_POST['naam']));
 			}else{
-				$naam 						= '';
+				$naam 						= 	'';
 			}
 			if(isset($_POST['addTraveller_email_booker'])){
-				$addTraveller_email_booker 			= $this->cleanUpString(htmlspecialchars($_POST['addTraveller_email_booker']));
-				$_SESSION['addTraveller_email_booker']		= $this->cleanUpString(htmlspecialchars($_POST['addTraveller_email_booker']));
+				$addTraveller_email_booker 			= 	$this->cleanUpString(htmlspecialchars($_POST['addTraveller_email_booker']));
+				$_SESSION['addTraveller_email_booker']		= 	$this->cleanUpString(htmlspecialchars($_POST['addTraveller_email_booker']));
 			}else{
-				$addTraveller_email_booker 			= '';
+				$addTraveller_email_booker 			= 	'';
 			}
 			if(isset($_POST['kantoor'])){
-				$kantoor 					= $this->cleanUpString(htmlspecialchars($_POST['kantoor']));
+				$kantoor 					= 	$this->cleanUpString(htmlspecialchars($_POST['kantoor']));
 			}else{
-				$kantoor 					= '';
+				$kantoor 					= 	'';
 			}
 			if(isset($_POST['ticket'])){
-				$ticket 					= $this->cleanUpString(htmlspecialchars($_POST['ticket']));
+				$ticket 					=	 $this->cleanUpString(htmlspecialchars($_POST['ticket']));
 			}else{
-				$ticket 					= '';
+				$ticket 					= 	'';
 			}
 			if(isset($_POST['subject'])){
-				$subject 					= $this->cleanUpString(htmlspecialchars($_POST['subject']));
+				$subject 					= 	$this->cleanUpString(htmlspecialchars($_POST['subject']));
 			}else{
-				$subject 					= '';
+				$subject 					= 	'';
 			}
 			if(isset($_POST['prio'])){
-				$prio 						= $this->cleanUpString(htmlspecialchars($_POST['prio']));
+				$prio 						= 	$this->cleanUpString(htmlspecialchars($_POST['prio']));
 			}else{
-				$prio 						= '';
+				$prio 						= 	'';
 			}
 			if(isset($_POST['datum'])){
 				
 				$datum = date("Y-m-d", strtotime($_POST['datum']));
-				$_SESSION['travelSegment_prefDate']		= $datum;
+				$_SESSION['travelSegment_prefDate']		= 	$datum;
 			}else{
-				$datum 						= '';
+				$datum 						= 	'';
 			}
 			require_once('connect.php');
 			$operatingsystem					=	$_SERVER['HTTP_USER_AGENT'];
@@ -182,7 +182,7 @@ Marketing
 			$display						=	'block';
 			mysqli_set_charset( $mysqli, 'utf8');
 			
-			$query							="INSERT INTO `marketingticket` (`id`, `naam`, `email`, `kantoor`, `prio`, `ticket`,`subject`, `datum`, `status`,`actie`, `opmerking`, `currentdate`, `display`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?,?, ?,?,NULL,?);";
+			$query							=	"INSERT INTO `marketingticket` (`id`, `naam`, `email`, `kantoor`, `prio`, `ticket`,`subject`, `datum`, `status`,`actie`, `opmerking`, `currentdate`, `display`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?,?, ?,?,NULL,?);";
 			if (!($stmt = $mysqli->prepare($query))) {
 				echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 			}
@@ -224,34 +224,34 @@ Marketing
 			$response	= '';	
 
 			if(isset($_POST['opmerking'])){
-				$ticketresponse 					= $this->cleanUpString(htmlspecialchars($_POST['opmerking']));
+				$ticketresponse 					= 	$this->cleanUpString(htmlspecialchars($_POST['opmerking']));
 			}else{
-				$ticketresponse 					= '';
+				$ticketresponse 					= 	'';
 			}
 			if(isset($_POST['actie'])){
-				$actie 							= $this->cleanUpString(htmlspecialchars($_POST['actie']));
+				$actie 							= 	$this->cleanUpString(htmlspecialchars($_POST['actie']));
 			}else{
-				$actie 							= '';
+				$actie 							= 	'';
 			}
 			if(isset($_POST['status'])){
-				$status 						= $this->cleanUpString(htmlspecialchars($_POST['status']));
+				$status 						= 	$this->cleanUpString(htmlspecialchars($_POST['status']));
 			}else{
-				$status 						= '';
+				$status 						= 	'';
 			}
 			if(isset($_POST['prio'])){
-				$prio 							= $this->cleanUpString(htmlspecialchars($_POST['prio']));
+				$prio 							= 	$this->cleanUpString(htmlspecialchars($_POST['prio']));
 			}else{
-				$prio 							= '';
+				$prio 							= 	'';
 			}
 			if(isset($_POST['theid'])){
-				$id 							= $_POST['theid'];
+				$id 							= 	$_POST['theid'];
 			}else{
-				$id 							= 0;
+				$id 							=	 0;
 			}
 			if(isset($_POST['subjects'])){
-				$subject 						= $_POST['subjects'];
+				$subject 						= 	$_POST['subjects'];
 			}else{
-				$subject 						= 0;
+				$subject 						= 	0;
 			}
 		
 			require_once('connect.php');
